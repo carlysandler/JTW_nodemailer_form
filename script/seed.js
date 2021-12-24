@@ -62,6 +62,8 @@ const generateJSON = (num) => {
 
 
   fs.writeFileSync(`${__dirname}/contacts.json`, JSON.stringify(contacts, null, 2))
+
+
 }
 
 
@@ -88,5 +90,8 @@ module.exports = {
 }
 
 if (require.main === module){
+  runSeed()
+}
+else {
   runSeed()
 }
