@@ -1,4 +1,4 @@
-const {db, models: {User, UserContacts} } = require('../server/db/index')
+const {db, models: {User, Contact, UserContacts} } = require('../server/db/index')
 const contacts = require('./contacts.json')
 const fs = require('fs')
 const faker = require('faker')
@@ -11,12 +11,24 @@ const seed = async () => {
 
     console.log('seeding DB...')
     // creating contacts
-    await db.models.contact.bulkCreate(contacts)
+    const contacts = Array(10).fill({}).map(o => {
+      const firstName = faker.name.firstName()
+      const lastName  = faker.name.lastName()
+      return {
+        firstName,
+        lastName,
+        email: (`${firstName}.${lastName}@gmail.com`).toLowerCase()
+      }
+    })
+
+    await Contact.bulkCreate(contacts)
+    console.log(`seeded ${contacts.length} contacts`)
     // creating users
     const users = await Promise.all([
       User.create({ username: 'csandler95', password: 'asecret123'}),
       User.create({ username: 'gracehopper', password: 'asecret123'})
     ])
+
 
 
     console.log(`seeded ${users.length} users`)
@@ -48,23 +60,7 @@ const seed = async () => {
 
 /**
  * This function is used to generate the contents of contacts.json
- */
-const generateJSON = (num) => {
-  const contacts = Array(num).fill({}).map(o => {
-    const firstName = faker.name.firstName()
-    const lastName  = faker.name.lastName()
-    return {
-      firstName,
-      lastName,
-      email: (`${firstName}.${lastName}@gmail.com`).toLowerCase()
-    }
-  })
-
-
-  fs.writeFileSync(`${__dirname}/contacts.json`, JSON.stringify(contacts, null, 2))
-
-
-}
+**/
 
 
 
@@ -85,8 +81,7 @@ async function runSeed() {
 
 
 module.exports = {
-  seed,
-  generateJSON
+  seed
 }
 
 if (require.main === module){
