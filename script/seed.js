@@ -1,4 +1,4 @@
-const {db, models: {User, Contact, UserContacts} } = require('../server/db')
+const {db, models: {User, UserContacts} } = require('../server/db/index')
 const contacts = require('./contacts.json')
 const fs = require('fs')
 const faker = require('faker')

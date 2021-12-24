@@ -10,7 +10,7 @@
     "heroku-token": "node script/encrypt-heroku-auth-token.js",
     "postinstall": "npm run build -p",
     "seed": "node script/seed.js",
-    "start": "set JWT=ssh&&node server",
+    "start": "NODE_ENV=production set JWT=ssh&&node server",
     "start:dev": "npm run build:dev & npm run start-server",
     "start:dev:logger": "LOGGING=true npm run start:dev",
     "start:dev:seed": "SEED=true npm run start:dev",
@@ -25,6 +25,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "bcrypt": "^5.0.0",
+    "child_process": "^1.0.2",
     "compression": "^1.7.3",
     "css-loader": "^6.5.1",
     "dotenv": "^10.0.0",
@@ -39,7 +40,9 @@
     "postinstall": "^0.7.4",
     "react-toastify": "^8.1.0",
     "sequelize": "^6.3.5",
-    "style-loader": "^3.3.1"
+    "simple-git": "^2.48.0",
+    "style-loader": "^3.3.1",
+    "yaml": "^1.10.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
