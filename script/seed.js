@@ -40,6 +40,7 @@ const seed = async () => {
     ])
 
     console.log('seeded all!')
+    db.close()
     return {
       users: {
         csandler95: users[0],
@@ -53,6 +54,7 @@ const seed = async () => {
     }
 
 
+
  } catch (e) {
     console.error(e)
   }
@@ -64,29 +66,10 @@ const seed = async () => {
 
 
 
-async function runSeed() {
-  console.log('seeding...')
-  try {
-    await seed()
-  } catch (err) {
-    console.error(err)
-    process.exitCode = 1
-  } finally {
-    console.log('closing db connection')
-    await db.close()
-    console.log('db connection closed')
-  }
-}
-
-
-
 module.exports = {
   seed
 }
 
 if (require.main === module){
-  runSeed()
-}
-else {
-  runSeed()
+  seed()
 }
