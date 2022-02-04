@@ -20,8 +20,8 @@ router.post('/contact', (req, res)=>{
 
     // authenticate
     auth:{
-        user:'carly.sandler@gmail.com',
-        pass: 'Gracehopper1108$'
+        user:'test@gmail.com',
+        pass: '123456'
     }
 })
 
